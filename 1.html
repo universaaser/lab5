@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas Smiley Face</title>
+</head>
+
+<body>
+    <canvas id="smileyFace" width="400" height="400"></canvas>
+
+    <script>
+        var canvas = document.getElementById('smileyFace');
+        var ctx = canvas.getContext('2d');
+
+        // Set background color to light green
+        ctx.fillStyle = '#a3f7bf';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the face
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2, 150, 0, Math.PI * 2, true); // Outer circle
+        ctx.closePath();
+        ctx.fillStyle = '#ffff00'; // Face color yellow
+        ctx.fill();
+        ctx.strokeStyle = "#000"; // Outline color
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // Draw the mouth
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2 + 50, 60, 0, Math.PI, false); // Mouth (counter-clockwise)
+        ctx.strokeStyle = "#000"; // Mouth color black
+        ctx.stroke();
+
+        // Draw the nose as a vertical line
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2, canvas.height / 2 - 30);
+        ctx.lineTo(canvas.width / 2, canvas.height / 2 + 10);
+        ctx.strokeStyle = "#000"; // Nose color black
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // Draw the eyes
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2 - 50, canvas.height / 2 - 50, 15, 0, Math.PI * 2, true); // Left eye
+        ctx.arc(canvas.width / 2 + 50, canvas.height / 2 - 50, 15, 0, Math.PI * 2, true); // Right eye
+        ctx.fillStyle = '#000'; // Eye color black
+        ctx.fill();
+
+        // Draw text
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#000'; // Text color black
+        ctx.fillText('The Canvas brought me to life!', 10, canvas.height - 20);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List with Local Storage</title>
+</head>
+
+<body>
+    <h2>To-Do List</h2>
+    <input type="text" id="newTask" placeholder="Enter a new task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        // Check for saved tasks in localStorage
+        var tasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
+
+        // Function to display tasks
+        function displayTasks() {
+            var taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            for (var i = 0; i < tasks.length; i++) {
+                var li = document.createElement('li');
+                li.textContent = tasks[i];
+                var button = document.createElement('button');
+                button.textContent = 'Remove';
+                button.onclick = function (index) {
+                    return function () {
+                        removeTask(index);
+                    };
+                }(i);
+                li.appendChild(button);
+                taskList.appendChild(li);
+            }
+        }
+
+        // Function to add a new task
+        function addTask() {
+            var newTask = document.getElementById('newTask').value;
+            tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            displayTasks();
+            document.getElementById('newTask').value = '';
+        }
+
+        // Function to remove a task
+        function removeTask(index) {
+            tasks.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            displayTasks();
+        }
+
+        // Display tasks on load
+        displayTasks();
+    </script>
+</body>
+
+</html>
